@@ -2,25 +2,25 @@
 
 	//converting the array to two equal parts and find the vampire number
 
-	Boolean checkVampire(int[] arr, int num) {
-		int firstPart = 0;
-		int secondPart = 0;
+	Boolean checkVamp(int[] arr, int num) {
+		int fp = 0;
+		int sp = 0;
 		for (int index = 0; index < (arr.length) / 2; index++) {
-			firstPart += arr[index] * Math.pow(10, (arr.length) / 2 - index - 1);
+			fp += arr[index] * Math.pow(10, (arr.length) / 2 - index - 1);
 		}
 		for (int index = (arr.length) / 2; index < arr.length; index++) {
-			secondPart += arr[index] * Math.pow(10, (arr.length - index - 1));
+			sp += arr[index] * Math.pow(10, (arr.length - index - 1));
 		}
-		if (firstPart * secondPart == num) {
+		if (fp * sp == num) {
 			return true;
 		}
 		return false;
 	}
 
 	//finds all the permutations of the given input array and returns to the checkvampire method.
-	void permutaionFinder(int[] arr, int index, int num) {
+	void permFind(int[] arr, int index, int num) {
 		if (index >= arr.length - 1) {
-			if (this.checkVampire(arr, num)) {
+			if (this.checkVamp(arr, num)) {
 				//flag will set to true if it is a vampire number.
 				isFlag = true;
 			}
@@ -29,7 +29,7 @@
 			int t = arr[index];
 			arr[index] = arr[i];
 			arr[i] = t;
-			permutaionFinder(arr, index + 1, num);
+			permFind(arr, index + 1, num);
 			t = arr[index];
 			arr[index] = arr[i];
 			arr[i] = t;
@@ -64,7 +64,7 @@ public class Ques1 {
 		while (count < 100) {
 			if (((int) (Math.log10(number) + 1))%2 == 0) {
 				int[] array = vampire.breakNumber(number);
-				vampire.permutaionFinder(array, 0, number);
+				vampire.permFind(array, 0, number);
 				if (vampire.isFlag) {
 					System.out.println(number);
 					count++;
